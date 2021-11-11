@@ -1,0 +1,363 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>荐物娘后台管理</title>
+    <meta content="荐物娘" name="keywords">
+    <meta content="荐物娘"
+          name="description">
+    <meta content="webkit" name="renderer">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="*" http-equiv="Access-Control-Allow-Origin">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="telephone=no" name="format-detection">
+    <link href="/layuimini-2/images/favicon.ico" rel="icon">
+    <link href="/layuimini-2/lib/layui-v2.6.3/css/layui.css" media="all" rel="stylesheet">
+    <link href="/layuimini-2/css/layuimini.css?v=2.0.4.2" media="all" rel="stylesheet">
+    <link href="/layuimini-2/css/themes/default.css" media="all" rel="stylesheet">
+    <link href="/layuimini-2/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="/layuimini-2/zj/html5.min.js"></script>
+    <script src="/layuimini-2/zj/respond.min.js"></script>
+    <![endif]-->
+    <style id="layuimini-bg-color">
+    </style>
+</head>
+<body class="layui-layout-body layuimini-all">
+<div class="layui-layout layui-layout-admin">
+
+    <div class="layui-header">
+        <div class="">
+            <a href="">
+                <div style="left: 55px; position: absolute; top: 12px;font-size:28px;font-weight:bold"><font
+                        color="#ffffff">荐物娘</font></div>
+            </a>
+        </div>
+
+        <div class="layuimini-header-content">
+            <a>
+                <div class="layuimini-tool"><i class="fa fa-outdent" data-side-fold="1" title="展开"></i></div>
+            </a>
+
+            <!--电脑端头部菜单-->
+            <ul class="layui-nav layui-layout-left layuimini-header-menu">
+                <span class="layui-nav-bar" style="left: 0px; top: 60px; width: 0px; opacity: 0;"></span>
+            </ul>
+
+            <!--手机端头部菜单-->
+            <ul class="layui-nav layui-layout-left layuimini-header-menu layuimini-mobile-show">
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="fa fa-list-ul"></i> 选择模块 </a>
+                    <dl class="layui-nav-child layuimini-menu-header-mobile">
+                    </dl>
+                </li>
+            </ul>
+
+            <ul class="layui-nav layui-layout-right">
+
+                <li class="layui-nav-item" lay-unselect>
+                    <a data-refresh="刷新" href="javascript:;"><i class="fa fa-refresh"></i></a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a class="layuimini-clear" data-clear="清理" href="javascript:;"><i class="fa fa-trash-o"></i></a>
+                </li>
+                <li class="layui-nav-item mobile layui-hide-xs" lay-unselect>
+                    <a data-check-screen="full" href="javascript:;"><i class="fa fa-arrows-alt"></i></a>
+                </li>
+                <li class="layui-nav-item layuimini-setting">
+                    <a href="javascript:;">管理员</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a data-icon="fa fa-gears" data-title="基本资料" href="javascript:;"
+                               layuimini-content-href="page/user-setting.html">基本资料<span class="layui-badge-dot"></span></a>
+                        </dd>
+                        <dd>
+                            <a data-icon="fa fa-gears" data-title="修改密码" href="javascript:;"
+                               layuimini-content-href="page/user-password.html">修改密码</a>
+                        </dd>
+                        <dd>
+                            <hr>
+                        </dd>
+                        <dd>
+                            <a class="login-out" href="javascript:;">退出登录</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layuimini-select-bgcolor" lay-unselect>
+                    <a data-bgcolor="配色方案" href="javascript:;"><i class="fa fa-ellipsis-v"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--无限极左侧菜单-->
+    <div class="layui-side layui-bg-black">
+        <ul class="layui-nav layui-nav-tree layui-left-nav-tree" id="multi_module_0">
+            <li class="layui-nav-item menu-li  "></li>
+            <li class="layui-nav-item menu-li  "><a href="javascript:;" layuimini-href="page/welcome-1.html"
+                                                    target="_self"> <i class="fa fa-gears"></i> <span
+                    class="layui-left-nav">主页</span></a></li>
+            <li class="layui-nav-item menu-li  "><a href="javascript:;" layuimini-href="page/setting.html"
+                                                    target="_self"> <i class="fa fa-gears"></i> <span
+                    class="layui-left-nav">系统设置</span></a></li>
+            <li class="layui-nav-item menu-li  "><a href="javascript:;" layuimini-href="/admins/table"
+                                                    target="_self">
+                <i class="fa fa-file-text"></i> <span class="layui-left-nav">用户管理</span></a></li>
+            <li class="layui-nav-item menu-li  "></li>
+            <span class="layui-nav-bar"></span></ul>
+    </div>
+
+    <!--初始化加载层-->
+    <div class="layuimini-loader">
+        <div class="layuimini-loader-inner"></div>
+    </div>
+
+    <!--手机端遮罩层-->
+    <div class="layuimini-make"></div>
+
+    <!-- 移动导航 -->
+    <div class="layuimini-site-mobile"><i class="layui-icon"></i></div>
+
+    <div class="layui-body">
+
+        <div class="layuimini-tab layui-tab-rollTool layui-tab" lay-allowclose="true" lay-filter="layuiminiTab">
+            <ul class="layui-tab-title">
+                <li class="layui-this" id="layuiminiHomeTabId" lay-id=""></li>
+            </ul>
+            <div class="layui-tab-control">
+                <li class="layuimini-tab-roll-left layui-icon layui-icon-left"></li>
+                <li class="layuimini-tab-roll-right layui-icon layui-icon-right"></li>
+                <li class="layui-tab-tool layui-icon layui-icon-down">
+                    <ul class="layui-nav close-box">
+                        <li class="layui-nav-item">
+                            <a href="javascript:;"><span class="layui-nav-more"></span></a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="javascript:;" layuimini-tab-close="current">关 闭 当 前</a></dd>
+                                <dd><a href="javascript:;" layuimini-tab-close="other">关 闭 其 他</a></dd>
+                                <dd><a href="javascript:;" layuimini-tab-close="all">关 闭 全 部</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show" id="layuiminiHomeTabIframe"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script charset="utf-8" src="/layuimini-2/lib/layui-v2.6.3/layui.js"></script>
+<script charset="utf-8" src="/layuimini-2/js/lay-config.js?v=2.0.0"></script>
+<script>
+    layui.use(['jquery', 'layer', 'miniAdmin', 'miniTongji'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            miniAdmin = layui.miniAdmin,
+            miniTongji = layui.miniTongji;
+
+        var options = {
+            iniUrl: "/layuimini-2/api/init.json",    // 初始化接口
+            clearUrl: "/layuimini-2/api/clear.json", // 缓存清理接口
+            urlHashLocation: true,      // 是否打开hash定位
+            bgColorDefault: false,      // 主题默认配置
+            multiModule: true,          // 是否开启多模块
+            menuChildOpen: false,       // 是否默认展开菜单
+            loadingTime: 0,             // 初始化加载时间
+            pageAnim: true,             // iframe窗口动画
+            maxTabNum: 20,              // 最大的tab打开数量
+        };
+        miniAdmin.render(options);
+
+        // 百度统计代码，只统计指定域名
+        miniTongji.render({
+            specific: true,
+            domains: [
+                '99php.cn',
+                'layuimini.99php.cn',
+                'layuimini-onepage.99php.cn',
+            ],
+        });
+
+        $('.login-out').on("click", function () {
+            layer.msg('退出登录成功', function () {
+                window.location = '/admins/log';
+            });
+        });
+    });
+</script>
+
+<%--<div class="layui-layer layui-layer-page" contype="string" id="layui-layer5" showtime="0"
+     style="z-index: 19891019; width: 340px; height: 346px; top: 60px; left: 1196px;" times="5"
+     type="page">
+    <div class="layui-layer-content" id="layuiminiBgColor" style="height: 346px;">
+        <div class="layuimini-color">
+            <div class="color-title">
+                <span>主题颜色</span>
+            </div>
+            <div class="color-content">
+                <ul>
+                    <li data-select-bgcolor="0">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #192027;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #ffffff;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #28333E;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="1">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #0c0c0c;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #23262e;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #23262e;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="2">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #e694bd;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #ffa4d1;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #1f1f1f;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="layui-this" data-select-bgcolor="3">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #0c0c0c;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #1aa094;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #23262e;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="4">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #0c0c0c;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #1e9fff;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #1f1f1f;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="5">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #243346;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #ffb800;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #2f4056;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="6">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #0c0c0c;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #e82121;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #1f1f1f;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="7">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #243346;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #963885;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #2f4056;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="8">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #0069b7;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #2D8CF0;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #1f1f1f;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="9">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #d09600;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #ffb800;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #2f4056;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="10">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #d91f1f;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #e82121;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #1f1f1f;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li data-select-bgcolor="11">
+                        <a class="clearfix full-opacity-hover" data-skin="skin-blue" href="javascript:;" style="">
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 12px; background: #772c6a;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 12px; background: #963885;"></span>
+                            </div>
+                            <div><span
+                                    style="display:block; width: 20%; float: left; height: 40px; background: #2f4056;"></span><span
+                                    style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="more-menu-list">
+                <a class="more-menu-item" href="http://layuimini.99php.cn/docs/index.html" target="_blank"><i
+                        class="layui-icon layui-icon-read" style="font-size: 19px;"></i> 开发文档</a>
+                <a class="more-menu-item" href="https://github.com/zhongshaofa/layuimini" target="_blank"><i
+                        class="layui-icon layui-icon-tabs" style="font-size: 16px;"></i> 开源地址</a>
+                <a class="more-menu-item" href="http://layuimini.99php.cn" target="_blank"><i
+                        class="layui-icon layui-icon-theme"></i> 官方网站</a>
+            </div>
+        </div>
+    </div>
+    <span class="layui-layer-setwin"></span><span class="layui-layer-resize"></span></div>--%>
+
+</body>
+</html>
+
